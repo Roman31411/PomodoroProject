@@ -86,13 +86,13 @@ body{
 .progress-ring {
     transform: rotate(-90deg);
 }
-.progress-ring circle {
-    stroke: var(--primary);
-    fill: none;
-    stroke-width: 10px;
+.progress-ring__circle {
+    stroke: #ff7675; /* Белый цвет фона */
+    stroke-width: 10;
+    fill: transparent;
 }
-.progress-ring circle:nth-child(2) {
-    stroke: rgba(255, 255, 255, 0.1);
+.progress-ring__circle.progress {
+    stroke: #eee; /* Красный цвет прогресса */
 }
 /* ОСТАЛЬНОЕ */
 .status{
