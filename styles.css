@@ -23,12 +23,14 @@ body{
 /* СТИЛИ ДЛЯ СМЕНЫ РЕЖИМА */
 .container{
     background: var(--glass);
-    padding: 2.5rem;
+    padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 30px rgba(255, 51, 102, 0.2);
     text-align: center;
     backdrop-filter: blur(15px);
     border-radius: 30px;
+    width: 40%;
+    height: 40%;
 }
 .presets{
     display: flex;
@@ -94,6 +96,21 @@ body{
 .progress-ring__circle.progress {
     stroke: #eee; /* Красный цвет прогресса */
 }
+/* СТИЛИ ДЛЯ МОДАЛЬНЫХ ОКОН */
+.dialogModal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color:#27274d;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    & h2{
+        margin-bottom: 1rem;
+    }
+}
+
 /* ОСТАЛЬНОЕ */
 .status{
     color: rgba(255, 255, 255, 0.8);

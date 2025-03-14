@@ -32,19 +32,24 @@
       
       <!-- статистика -->
       <div class="status">
-        <label for="counter">Завершено циклов: </label><span id="counter">0</span>
+        <label for="counter">Cycles completed: </label><span id="counter">0</span>
         <br><br>
-        <label for="longBreakCounter">до длительного перерыва: </label><span id="longBreakCounter">0</span>
+        <label for="longBreakCounter">Before the long break: </label><span id="longBreakCounter">0</span>
       </div>
     </div>
 
     <!-- модальное окно -->
-    <dialog id="dialog">
-      <h2>Продолжить работу?</h2>
-      <button type="button" class="btn" id="btnYes">Да</button>
-      <button type="button" class="btn" id="btnNo">Нет</button>
+    <dialog class="dialogModal" id="dialogNextCycles">
+      <h2>Keep working?</h2>
+      <button type="button" class="btn" id="btnYes">Yes</button>
+      <button type="button" class="btn" id="btnNo">No</button>
     </dialog>
 
+    <dialog class="dialogModal" id="dialogWarning">
+      <h2>Keep working?</h2>
+      <button type="button" class="btn" id="btnNext">Yes</button>
+      <button type="button" class="btn" id="btnStay">No</button>
+    </dialog>
     <!-- блок музыки --> 
    <audio id="bgMusic">
       <source src="music.mp3" type="audio/mpeg">
