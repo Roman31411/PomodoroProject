@@ -41,20 +41,20 @@
     <!-- модальное окно -->
     <dialog class="dialogModal" id="dialogNextCycles">
       <h2>Keep working?</h2>
-      <button type="button" class="btn" id="btnYes">Yes</button>
-      <button type="button" class="btn" id="btnNo">No</button>
+      <button type="button" class="btn" data-btn="Yes" id="btnYes">Yes</button>
+      <button type="button" class="btn" data-btn="No" id="btnNo">No</button>
     </dialog>
 
     <dialog class="dialogModal" id="dialogWarning">
       <h2>Keep working?</h2>
-      <button type="button" class="btn" id="btnNext">Yes</button>
-      <button type="button" class="btn" id="btnStay">No</button>
+      <button type="button" class="btn" data-btn="Yes" id="btnNext">Yes</button>
+      <button type="button" class="btn" data-btn="No" id="btnStay">No</button>
     </dialog>
     <!-- блок музыки --> 
-   <audio id="bgMusic">
-      <source src="music.mp3" type="audio/mpeg">
+   <audio id="bgMusic" preload="auto" loop>
+      <source src="source/sounds/music/piano1.mp3" type="audio/mpeg">
    </audio>
 
-    <script src="app.js"></script>
+    <script src="app.js" type="module"></script>
 </body>
 </html>

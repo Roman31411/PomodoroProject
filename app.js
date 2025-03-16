@@ -1,3 +1,7 @@
+import { dialogModuleNextCycles } from "./js/dialogModuleNextCycles.js"
+
+
+
 class PomodoroTimer {
     constructor() {
         // Тайминги в секундах (минуты * 60)
@@ -23,10 +27,7 @@ class PomodoroTimer {
             musicBtn: document.querySelector('.music-btn'),
             longBreakCounter: document.getElementById('longBreakCounter'),
             audio: document.getElementById('bgMusic'),
-            dialogNextCycles: document.getElementById('dialogNextCycles'),
             dialogWarning: document.getElementById('dialogWarning'),
-            dialogYes: document.getElementById('btnYes'),
-            dialogNo: document.getElementById('btnNo'),
             dialogNext: document.getElementById('btnNext'),
             dialogStay: document.getElementById('btnStay'),
             progressRing: document.querySelector('.progress-ring .progress'),
@@ -56,10 +57,12 @@ class PomodoroTimer {
         })
         
         // Обработчики диалогового окна
-        this.elements.dialogYes.addEventListener('click', () => this.handleDialog(true))
-        this.elements.dialogNo.addEventListener('click', () => this.handleDialog(false))
-        this.elements.dialogNext.addEventListener('click', () => this.handleDialogWarning(true))
-        this.elements.dialogStay.addEventListener('click', () => this.handleDialogWarning(false))
+
+        this.elements.dialogNext.addEventListener('click', () =>
+             this.handleDialogWarning(true))
+
+        this.elements.dialogStay.addEventListener('click', () =>
+             this.handleDialogWarning(false))
     }
 
     // Обработка клика на пресет
@@ -186,19 +189,10 @@ class PomodoroTimer {
         this.timeLeft = this.WORK_TIME
         this.totalWorkTime = 0
         this.cycles = 0
-        this.elements.dialogNextCycles.close()
+        dialogModuleNext.elements.dialogMain.close()
         this.updateDisplay()
     }
 
-    // Обработка ответа из диалогового окна
-    handleDialog(continueWork) {
-        this.elements.dialogNextCycles.close()
-        if (continueWork) {
-            this.startTimer()
-        } else {
-            this.resetTimer()
-        }
-    }
     handleDialogWarning(sure) {
         if (sure) {
             document.querySelectorAll('.preset-btn').forEach(btn => {
@@ -212,4 +206,5 @@ class PomodoroTimer {
     }
 }
 
-new PomodoroTimer()
+PomodoroTimer = new PomodoroTimer()
+const dialogModuleNext = new dialogModuleNextCycles("dialogNextCycles", PomodoroTimer)
