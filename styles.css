@@ -31,6 +31,7 @@ body{
     border-radius: 30px;
     width: 40%;
     height: 40%;
+    background: rgba(0, 0, 0, 0.1);
 }
 .presets{
     display: flex;
@@ -110,9 +111,21 @@ body{
         margin-bottom: 1rem;
     }
 }
-
+/* СТИЛИ ДЛЯ АУДИО */
+#audio{
+    display: none;
+}
 /* ОСТАЛЬНОЕ */
 .status{
     color: rgba(255, 255, 255, 0.8);
     margin-top: 1.5rem;
+}
+#bgVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1; /* Отправляем видео на задний план */
+    object-fit: cover; /* Растягиваем на весь экран без искажений */
 }

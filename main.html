@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <video src="source/backgrounds/bg.mp4"  autoplay muted loop id="bgVideo">
+  </video>
     <!-- контейнер для смены режима -->
     <div class="container">
       <div class="presets">
@@ -51,10 +53,11 @@
       <button type="button" class="btn" data-btn="No" id="btnStay">No</button>
     </dialog>
     <!-- блок музыки --> 
+  <div id="audio">
    <audio id="bgMusic" preload="auto" loop>
       <source src="source/sounds/music/piano1.mp3" type="audio/mpeg">
    </audio>
-
+  </div>
     <script src="app.js" type="module"></script>
 </body>
 </html>
