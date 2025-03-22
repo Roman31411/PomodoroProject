@@ -1,7 +1,5 @@
 import { dialogModuleNextCycles } from "./js/dialogModuleNextCycles.js"
-
-
-
+import { dialogWarningMove } from "./js/dialogWarningMove.js"
 class PomodoroTimer {
     constructor() {
         // Тайминги в секундах (минуты * 60)
@@ -15,9 +13,9 @@ class PomodoroTimer {
         this.isWorking = true       // Флаг текущего состояния (работа/перерыв)
         this.timerId = null         // ID интервала для управления таймером
         this.cycles = 0             // Количество завершенных циклов
-        this.currentPreset = '25/5' // Текущий выбранный пресет
+        this.currentPreset = `25/5` // Текущий выбранный пресет
         this.timeLeft = this.WORK_TIME // Оставшееся время текущей фазы
-
+        this.selectedPresetBtn = null
         this.ignoreCheck = false // Флаг игнорирования проверок
         // Получаем элементы DOM
         this.elements = {
@@ -25,14 +23,12 @@ class PomodoroTimer {
             startBtn: document.querySelector('.start-btn'),
             resetBtn: document.querySelector('.reset-btn'),
             musicBtn: document.querySelector('.music-btn'),
+            presetBtn: document.querySelectorAll('.preset-btn'),
             longBreakCounter: document.getElementById('longBreakCounter'),
             audio: document.getElementById('bgMusic'),
-            dialogWarning: document.getElementById('dialogWarning'),
-            dialogNext: document.getElementById('btnNext'),
-            dialogStay: document.getElementById('btnStay'),
             progressRing: document.querySelector('.progress-ring .progress'),
+            counterCycles: document.getElementById('counter'),
         }
-
         // Инициализация прогресс-круга
         const radius = this.elements.progressRing.r.baseVal.value
         this.circumference = 2 * Math.PI * radius // Длина окружности
@@ -52,40 +48,35 @@ class PomodoroTimer {
         this.elements.resetBtn.addEventListener('click', () => this.resetTimer())
         
         // Обработчики для пресетов
-        document.querySelectorAll('.preset-btn').forEach(btn => {
+        this.elements.presetBtn.forEach(btn => {
             btn.addEventListener('click', () => this.handlePresetClick(btn))
         })
         
-        // Обработчики диалогового окна
-
-        this.elements.dialogNext.addEventListener('click', () =>
-             this.handleDialogWarning(true))
-
-        this.elements.dialogStay.addEventListener('click', () =>
-             this.handleDialogWarning(false))
     }
 
     // Обработка клика на пресет
     handlePresetClick(btn) {
-        if(this.timerId != null & this.ignoreCheck === false) {
-            this.elements.dialogWarning.show()
+        if(this.timerId != null && this.ignoreCheck === false) {
+            this.selectedPresetBtn = btn
+            dialogMoveWarning.elements.dialogMain.show()
             return
         }
-        
+        this.ignoreCheck = false
         if (btn.classList.contains('active'))  return
 
         // Парсим значения из data-атрибута (например "25/5" -> [25, 5])
         this.currentPreset = btn.dataset.preset
+    
         const [work, brk] = this.currentPreset.split('/').map(Number)
       
         // Конвертируем минуты в секунды для хранения
         this.WORK_TIME = work * 60
         this.BREAK_TIME = brk * 60
-
+     
         // Обновляем UI и сбрасываем таймер
         document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'))
         btn.classList.add('active')
-        this.ignoreCheck = false
+        
         this.resetTimer()
     }
 
@@ -103,7 +94,8 @@ class PomodoroTimer {
         // Рассчитываем время до длинного перерыва: 120 минут - отработанные минуты
         this.elements.longBreakCounter.textContent = 
             Math.max(120 - Math.floor(this.totalWorkTime / 60), 0)
-        
+
+        this.elements.counterCycles.textContent = this.cycles
         this.updateProgress()
     }
 
@@ -149,14 +141,16 @@ class PomodoroTimer {
             if (this.timeLeft <= 0) {
                 clearInterval(this.timerId)
                 this.timerId = null
+
+                const wasWorking = this.isWorking;
                 this.switchPhase() // Меняем фазу
 
                 // Если перешли в рабочую фазу - показываем диалог
-                if (!this.isWorking) {
-                    this.cycles++
-                    this.elements.dialog.showModal()
-                } else {
+                if (wasWorking) {
                     this.startTimer()
+                } else {
+                    this.cycles++
+                    dialogModuleNext.elements.dialogMain.showModal()
                 }
             }
         }, 1000) // Интервал 1000ms = 1 секунда
@@ -193,18 +187,9 @@ class PomodoroTimer {
         this.updateDisplay()
     }
 
-    handleDialogWarning(sure) {
-        if (sure) {
-            document.querySelectorAll('.preset-btn').forEach(btn => {
-                if(!btn.classList.contains('active')){
-                    this.ignoreCheck = true
-                    this.handlePresetClick(btn)
-                } 
-            })
-        } 
-        this.elements.dialogWarning.close()
-    }
+  
 }
 
 PomodoroTimer = new PomodoroTimer()
 const dialogModuleNext = new dialogModuleNextCycles("dialogNextCycles", PomodoroTimer)
+const dialogMoveWarning = new dialogWarningMove("dialogWarning", PomodoroTimer)

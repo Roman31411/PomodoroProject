@@ -5,15 +5,20 @@ export class dialogModuleBase{
             btnYes: document.querySelector(`#${dialogId} button[data-btn="Yes"]`),
             btnNo: document.querySelector(`#${dialogId} button[data-btn="No"]`),
         }
+        this.initEventListeners()
     }
     initEventListeners(){
-        this.elements.btnYes.addEventListener('click', () =>
-             this.handleDialog(true))
-
-        this.elements.btnNo.addEventListener('click', () =>
-             this.handleDialog(false))
+        this.elements.btnYes.addEventListener('click', () =>{
+            console.log("click yes")
+             this.handleDialog(true)
+        })
+        this.elements.btnNo.addEventListener('click', () =>{
+            console.log("click no")
+             this.handleDialog(false)
+        })
     }
-    handleDialog(parametr){
-        this.elements.dialogMain.close()
+    handleDialog(){
+        
     }
 }
+
