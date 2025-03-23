@@ -19,6 +19,7 @@ body{
     justify-content: center;
     background: var(--bg);
     overflow: hidden;
+    user-select: none;
 }
 /* СТИЛИ ДЛЯ СМЕНЫ РЕЖИМА */
 .container{

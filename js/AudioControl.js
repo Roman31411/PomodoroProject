@@ -4,6 +4,7 @@ export class AudioControl{
             audiocontainer: document.getElementById("audio"),
             music: document.getElementById("bgMusic"),
             btnControlMusic: document.querySelector(".music-btn"),
+            click: document.getElementById("click")
         }
         console.log(this.elements)
         this.musicStates = true
@@ -13,6 +14,7 @@ export class AudioControl{
         this.elements.btnControlMusic.addEventListener('pointerdown', () => this.toggleMusic())
     }
     toggleMusic(){
+        this.soundClick()
         if(this.musicStates){
             this.musicStates = false
             this.elements.music.pause()
@@ -24,6 +26,6 @@ export class AudioControl{
         }
     }
    soundClick(){
-        
+        this.elements.click.play()
     }
 }

@@ -1,5 +1,6 @@
+
 export class PomodoroTimer {
-    constructor() {
+    constructor(Audio) {
         // Тайминги в секундах (минуты * 60)
         this.WORK_TIME = 25 * 60    // Рабочее время
         this.BREAK_TIME = 5 * 60    // Короткий перерыв
@@ -27,6 +28,9 @@ export class PomodoroTimer {
             progressRing: document.querySelector('.progress-ring .progress'),
             counterCycles: document.getElementById('counter'),
         }
+        this.AudioControl = Audio
+        this.dialogModuleNext = null
+        this.dialogMoveWarning = null
         // Инициализация прогресс-круга
         const radius = this.elements.progressRing.r.baseVal.value
         this.circumference = 2 * Math.PI * radius // Длина окружности
@@ -54,9 +58,10 @@ export class PomodoroTimer {
 
     // Обработка клика на пресет
     handlePresetClick(btn) {
+        this.AudioControl.soundClick()
         if(this.timerId != null && this.ignoreCheck === false) {
             this.selectedPresetBtn = btn
-            dialogMoveWarning.elements.dialogMain.show()
+            this.dialogMoveWarning.elements.dialogMain.show()
             return
         }
         this.ignoreCheck = false
@@ -118,6 +123,7 @@ export class PomodoroTimer {
 
     // Переключение состояния таймера (старт/пауза)
     toggleTimer() {
+        this.AudioControl.soundClick()
         if (this.timerId) {
             clearInterval(this.timerId)
             this.timerId = null
@@ -148,7 +154,7 @@ export class PomodoroTimer {
                     this.startTimer()
                 } else {
                     this.cycles++
-                    dialogModuleNext.elements.dialogMain.showModal()
+                    this.dialogModuleNext.elements.dialogMain.showModal()
                 }
             }
         }, 1000) // Интервал 1000ms = 1 секунда
@@ -174,13 +180,14 @@ export class PomodoroTimer {
 
     // Сброс таймера в начальное состояние
     resetTimer() {
+        this.AudioControl.soundClick()
         clearInterval(this.timerId)
         this.elements.startBtn.textContent = 'Start'
         this.timerId = null
         this.isWorking = true
         this.timeLeft = this.WORK_TIME
         this.totalWorkTime = 0
-        dialogModuleNext.elements.dialogMain.close()
+        this.dialogModuleNext.elements.dialogMain.close()
         this.updateDisplay()
     }
     
