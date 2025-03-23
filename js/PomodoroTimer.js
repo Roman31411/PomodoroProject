@@ -2,8 +2,8 @@
 export class PomodoroTimer {
     constructor(Audio) {
         // Тайминги в секундах (минуты * 60)
-        this.WORK_TIME = 25 * 60    // Рабочее время
-        this.BREAK_TIME = 5 * 60    // Короткий перерыв
+        this.WORK_TIME = 0.1 * 60    // Рабочее время
+        this.BREAK_TIME = 0.1 * 60    // Короткий перерыв
         this.LONG_BREAK_TIME = 20 * 60 // Длинный перерыв
         this.TIME_TO_LONG_BREAK = 7200 // 2 часа (7200 сек) работы до длинного перерыва
         
@@ -154,6 +154,7 @@ export class PomodoroTimer {
                     this.startTimer()
                 } else {
                     this.cycles++
+                    this.AudioControl.soundEndCycles()
                     this.dialogModuleNext.elements.dialogMain.showModal()
                 }
             }
@@ -162,6 +163,7 @@ export class PomodoroTimer {
 
     // Переключение между рабочим временем и перерывом
     switchPhase() {
+        this.AudioControl.soundEndCycles()
         if (this.isWorking) {
             // Добавляем отработанное время к общему
             this.totalWorkTime += this.WORK_TIME
