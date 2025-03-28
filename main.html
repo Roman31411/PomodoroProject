@@ -31,7 +31,12 @@
         <button type="button" class="btn reset-btn">Reset</button>
         <button type="button" class="btn music-btn">Music: ON</button>
       </div>
-      
+      <div id="volume-control">
+        
+        <div id="volume-slider-container" style="display: none;">
+            <input type="range" min="0" max="100" value="50" step="1" id="volume-slider">
+        </div>
+     </div>
       <!-- статистика -->
       <div class="status">
         <label for="counter">Cycles completed: </label><span id="counter">0</span>
@@ -40,17 +45,32 @@
       </div>
     </div>
 
-    <!-- модальное окно -->
+    <!-- модальные окна -->
+     <!-- следущий круг -->
     <dialog class="dialogModal" id="dialogNextCycles">
       <h2>Keep working?</h2>
       <button type="button" class="btn" data-btn="Yes" id="btnYes">Yes</button>
       <button type="button" class="btn" data-btn="No" id="btnNo">No</button>
     </dialog>
-
+  <!-- опасный круг -->
     <dialog class="dialogModal" id="dialogWarning">
       <h2>Are you sure?</h2>
       <button type="button" class="btn" data-btn="Yes" id="btnNext">Yes</button>
       <button type="button" class="btn" data-btn="No" id="btnStay">No</button>
+    </dialog>
+  <!-- настройки звук -->
+    <dialog class="dialogModal" id="controlsVolume">
+      <fieldset>
+        <legend><h1>Volume Controls</h1></legend>
+        <h2>Personal</h2>
+        <label for="mainVolume">
+         <b> Main volume </b>
+        </label>
+        <input type="range" min="0" max="100" value="50" step="1" id="mainVolume">
+        <h2>Shared</h2>
+        <input type="range" min="0" max="100" value="50" step="1" id="musicVolume">
+        <input type="range" min="0" max="100" value="50" step="1" id="rainVolume">
+      </fieldset>
     </dialog>
     <!-- блок музыки --> 
   <div id="audio">
@@ -58,7 +78,7 @@
       <source src="source/sounds/music/piano1.mp3" type="audio/mpeg">
    </audio>
    <audio id="click" preload="auto">
-    <source src="source/sounds/click.mp3" type="audio/mpeg">
+    <source src="source/sounds/click2.wav" type="audio/mpeg">
   </audio>
   <audio id="notification" preload="auto">
     <source src="source/sounds/notificationEndCycles.mp3" type="audio/mpeg">

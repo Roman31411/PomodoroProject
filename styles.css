@@ -111,10 +111,26 @@ body{
     & h2{
         margin-bottom: 1rem;
     }
+    & fieldset{
+        padding: 1rem 3rem;
+    }
+    & label{
+        margin-bottom: 1rem;
+    }
 }
 /* СТИЛИ ДЛЯ АУДИО */
 #audio{
     display: none;
+}
+#controlsVolume{
+    & fieldset{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        & input{
+            margin-bottom: 1rem;
+        }
+    }
 }
 /* ОСТАЛЬНОЕ */
 .status{
