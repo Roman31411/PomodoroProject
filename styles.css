@@ -72,6 +72,13 @@ body{
     gap: 1rem;
     justify-content: center;
     margin-top: 2rem;
+    & .music-btn{
+        border-radius: 999px;
+        padding: 0;
+    }
+    & #iconsMusicBtn{
+        border-radius: 999px;
+    }
 }
 /* СТИЛИ ДЛЯ ВСЕХ КНОПОК */
 .btn{
@@ -86,6 +93,7 @@ body{
     transform: scale(1.05);
     background: rgb(136, 27, 112);
 }
+
 /* СТИЛИ ДЛЯ КРУГА */
 .progress-ring {
     transform: rotate(-90deg);
@@ -105,7 +113,6 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
     background-color:#27274d;
-    padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     & h2{
@@ -113,10 +120,23 @@ body{
     }
     & fieldset{
         padding: 1rem 3rem;
+        margin: 2rem;
     }
     & label{
         margin-bottom: 1rem;
     }
+    & .close-btn{
+        position: absolute;
+        margin-left: 90%;
+        margin-top: 1%;
+        background: none;
+        border: none;
+        :hover{
+            transform: scale(1.05);
+        }
+
+    }
+    
 }
 /* СТИЛИ ДЛЯ АУДИО */
 #audio{
@@ -128,10 +148,18 @@ body{
         flex-direction: column;
         justify-content: center;
         & input{
+            margin-inline: 1rem;
+        }
+        & .inputs-wrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 1rem;
         }
     }
+    
 }
+
 /* ОСТАЛЬНОЕ */
 .status{
     color: rgba(255, 255, 255, 0.8);

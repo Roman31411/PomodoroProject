@@ -7,7 +7,6 @@ export class dialogModuleNextCycles extends dialogModuleBase{
     }
     // Обработка ответа из диалогового окна
     handleDialog(continueWork){
-        console.log("fsf")
         this.elements.dialogMain.close()
         if (continueWork) {
             this.PomodoroTimer.startTimer()

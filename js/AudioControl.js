@@ -1,35 +1,28 @@
 export class AudioControl{
     constructor(){
-        this.elements = {
-            audiocontainer: document.getElementById("audio"),
-            music: document.getElementById("bgMusic"),
-            btnControlMusic: document.querySelector(".music-btn"),
-            click: document.getElementById("click"),
-            notification: document.getElementById("notification")
+        this.selectors = {
+            audio: 'audio',
+            bgMusic: 'bgMusic',
+            notification: 'notification',
+            clickSound: 'clickSound'
         }
-        console.log(this.elements)
+        this.elements = {
+            audiocontainer: document.getElementById(this.selectors.audio),
+            music: document.getElementById(this.selectors.bgMusic),
+            clickSound: document.getElementById("clickSound"),
+            notification: document.getElementById(this.selectors.notification),
+        }
         this.musicStates = true
         this.initEventListeners()
     }   
     initEventListeners(){
-        this.elements.btnControlMusic.addEventListener('pointerdown', () => this.toggleMusic())
+      
     }
-    toggleMusic(){
-        this.soundClick()
-        if(this.musicStates){
-            this.musicStates = false
-            this.elements.music.pause()
-            this.elements.btnControlMusic.textContent = "Music: OFF"
-        }else{
-            this.musicStates = true
-            this.elements.music.play()
-            this.elements.btnControlMusic.textContent = "Music: ON"
-        }
-    }
+  
    soundClick(){
-        this.elements.click.play()
+        this.elements.clickSound.play()
     }
-    soundEndCycles(){
+   soundEndCycles(){
         this.elements.notification.play()
     }
 }

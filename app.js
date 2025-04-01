@@ -11,5 +11,3 @@ const dialogMoveWarning = new dialogWarningMove("dialogWarning", Pomodoro)
 new dialogAudioControl('controlsVolume')
 Pomodoro.dialogModuleNext = dialogModuleNext
 Pomodoro.dialogMoveWarning = dialogMoveWarning
-
-console.log(Audio)
