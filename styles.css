@@ -1,3 +1,5 @@
+@import url("css/reset.css");
+@import url("css/btn.css");
 /* ОбЩИЕ СТИЛИ */
 :root{
     --primary: #ff3366;
@@ -6,10 +8,6 @@
     --glass: rgba(255, 255, 255, 0.05);
 }
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
     color: white;
 }
 body{
@@ -20,6 +18,14 @@ body{
     background: var(--bg);
     overflow: hidden;
     user-select: none;
+    font-family: "Underdog", system-ui;
+}
+@font-face {
+    font-family: "Underdog";
+    src: url("source/fonts/Underdog-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
 /* СТИЛИ ДЛЯ СМЕНЫ РЕЖИМА */
 .container{
@@ -39,22 +45,6 @@ body{
     gap: 1rem;
     justify-content: center;
     margin-bottom: 2rem;
-}
-.preset-btn{
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 30px;
-    background: rgb(255, 255, 255, 0.1);
-    cursor: pointer;
-    transition: all 0.3s;
-}
-.preset-btn.active{
-    background: var(--primary);
-    box-shadow: 0 0 15px rgba(255, 51, 102, 0.3);
-}
-.preset-btn:hover{
-    transform: scale(1.05);
-    background: rgb(136, 27, 112);
 }
 /* СТИЛИ ДЛЯ ТАЙМЕРА И ЕГО ЭЛЕМЕНТОВ УПРАВЛЕНИЯ */
 .timer{
@@ -80,20 +70,6 @@ body{
         border-radius: 999px;
     }
 }
-/* СТИЛИ ДЛЯ ВСЕХ КНОПОК */
-.btn{
-    padding: 1rem 2rem;
-    border: none;
-    background: linear-gradient(45deg, var(--primary), #ca3b3b);
-    cursor: pointer;
-    border-radius: 50px;
-    transition: transform 0.3s;
-}
-.btn:hover{
-    transform: scale(1.05);
-    background: rgb(136, 27, 112);
-}
-
 /* СТИЛИ ДЛЯ КРУГА */
 .progress-ring {
     transform: rotate(-90deg);
@@ -114,27 +90,16 @@ body{
     transform: translate(-50%, -50%);
     background-color:#27274d;
     border-radius: 10px;
+   padding: 2rem;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     & h2{
         margin-bottom: 1rem;
     }
     & fieldset{
         padding: 1rem 3rem;
-        margin: 2rem;
     }
     & label{
         margin-bottom: 1rem;
-    }
-    & .close-btn{
-        position: absolute;
-        margin-left: 90%;
-        margin-top: 1%;
-        background: none;
-        border: none;
-        :hover{
-            transform: scale(1.05);
-        }
-
     }
     
 }
@@ -156,6 +121,24 @@ body{
             align-items: center;
             margin-bottom: 1rem;
         }
+    }
+    & .close-btn{
+        position: absolute;
+        top: 0.5rem;
+        left: 88%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        :hover{
+            transform: scale(1.1);
+        }
+        svg {
+            transition: transform 0.2s; 
+            width: 40px; 
+            height: auto;
+        }
+
     }
     
 }
