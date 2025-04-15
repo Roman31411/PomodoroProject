@@ -9,7 +9,7 @@ export class AudioControl{
         this.elements = {
             audiocontainer: document.getElementById(this.selectors.audio),
             music: document.getElementById(this.selectors.bgMusic),
-            clickSound: document.getElementById("clickSound"),
+            clickSound: document.getElementById(this.selectors.clickSound),
             notification: document.getElementById(this.selectors.notification),
         }
         this.musicStates = true
@@ -18,11 +18,18 @@ export class AudioControl{
     initEventListeners(){
       
     }
-  
-   soundClick(){
+    soundClick(){
         this.elements.clickSound.play()
     }
-   soundEndCycles(){
+    soundEndCycles(){
         this.elements.notification.play()
     }
+    setMasterVolume(volume){
+        const scaledVolume = volume / 100
+        const {music, clickSound, notification} = this.elements
+        music.volume = scaledVolume
+        clickSound.volume = scaledVolume
+        notification.volume = scaledVolume
+    }
+    
 }

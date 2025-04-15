@@ -1,15 +1,18 @@
 export class dialogAudioControl{
-    constructor(dialogId, Audio){
+    constructor(dialogId, Audio, JSONSevice){
+        this.JSONSevice = JSONSevice
         this.AudioControl = Audio
         this.selectors = {
-            dialogId: dialogId,
             btnOpen: '.music-btn',
-            btnClose: '.close-btn'
+            btnClose: '.close-btn',
+            mainVolumeChanger: 'mainVolume'
         }
+        const {btnOpen, btnClose, mainVolumeChanger} = this.selectors
         this.elements = {
-            dialogMain: document.getElementById(this.selectors.dialogId),
-            btnOpen: document.querySelector(this.selectors.btnOpen),
-            btnClose: document.querySelector(this.selectors.btnClose)
+            dialogMain: document.getElementById(dialogId),
+            btnOpen: document.querySelector(btnOpen),
+            btnClose: document.querySelector(btnClose),
+            mainVolumeChanger: document.getElementById(mainVolumeChanger)
         }
         console.log(this.elements)
         this.addVolumeIcons = this.addVolumeIcons.bind(this);
@@ -19,15 +22,26 @@ export class dialogAudioControl{
         this.initEventListeners()
     }
     initEventListeners(){
-        window.addEventListener('DOMContentLoaded', this.addVolumeIcons)
+        window.addEventListener('DOMContentLoaded',() => {
+            this.addVolumeIcons()
+            this.bindVolumeControls()
+        } )
         this.elements.btnOpen.addEventListener('pointerdown', this.open)
         this.elements.btnClose.addEventListener('pointerdown', this.close)
+        
     }
     open(){
         this.elements.dialogMain.show()
     }
     close(){
         this.elements.dialogMain.close()
+    }
+    bindVolumeControls(){
+        console.log(document.getElementById(this.selectors.mainVolumeChanger))
+        document.getElementById(this.selectors.mainVolumeChanger).addEventListener('change', (e) =>{
+            this.AudioControl.setMasterVolume(e.target.value)
+            this.JSONSevice.save('dsad' ,e.target.value)
+        })
     }
     addVolumeIcons(){
         const inputs = this.elements.dialogMain.querySelectorAll("fieldset input[type='range']")

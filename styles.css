@@ -75,12 +75,12 @@ body{
     transform: rotate(-90deg);
 }
 .progress-ring__circle {
-    stroke: #ff7675; /* Белый цвет фона */
-    stroke-width: 10;
+    stroke: #ff7675; /* Красный цвет прогресса */
     fill: transparent;
 }
 .progress-ring__circle.progress {
-    stroke: #eee; /* Красный цвет прогресса */
+    stroke: #eee; /* Белый цвет фона */
+    stroke-width: 10;
 }
 /* СТИЛИ ДЛЯ МОДАЛЬНЫХ ОКОН */
 .dialogModal{
