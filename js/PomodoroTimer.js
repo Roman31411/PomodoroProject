@@ -48,7 +48,14 @@ export class PomodoroTimer {
     initEventListeners() {
         this.elements.startBtn.addEventListener('click', () => this.toggleTimer())
         this.elements.resetBtn.addEventListener('click', () => this.resetTimer())
-        
+        document.addEventListener('pointerdown', (e) => {
+            console.log(e.currentTarget)
+            if(e.target.tagName == 'BUTTON' || e.target.getAttribute('role') === 'button'){
+                setTimeout(() => {
+                    this.AudioControl.soundClick()
+                }, 50)
+            }
+        })
         // Обработчики для пресетов
         this.elements.presetBtn.forEach(btn => {
             btn.addEventListener('click', () => this.handlePresetClick(btn))
@@ -58,7 +65,6 @@ export class PomodoroTimer {
 
     // Обработка клика на пресет
     handlePresetClick(btn) {
-        this.AudioControl.soundClick()
         if(this.timerId != null && this.ignoreCheck === false) {
             this.selectedPresetBtn = btn
             this.dialogMoveWarning.elements.dialogMain.show()
@@ -123,7 +129,6 @@ export class PomodoroTimer {
 
     // Переключение состояния таймера (старт/пауза)
     toggleTimer() {
-        this.AudioControl.soundClick()
         if (this.timerId) {
             clearInterval(this.timerId)
             this.timerId = null
@@ -182,7 +187,6 @@ export class PomodoroTimer {
 
     // Сброс таймера в начальное состояние
     resetTimer() {
-        this.AudioControl.soundClick()
         clearInterval(this.timerId)
         this.elements.startBtn.textContent = 'Start'
         this.timerId = null

@@ -31,5 +31,14 @@ export class AudioControl{
         clickSound.volume = scaledVolume
         notification.volume = scaledVolume
     }
-    
+    setMusicVolume(volume) {
+        this.elements.music.volume = volume / 100;
+    }
+    setClickVolume(volume) {
+        this.elements.clickSound.volume = volume / 100;
+    }
+    setNotificationVolume(volume) {
+        this.elements.notification.volume = volume / 100;
+    }
+
 }

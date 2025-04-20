@@ -5,16 +5,17 @@ export class dialogAudioControl{
         this.selectors = {
             btnOpen: '.music-btn',
             btnClose: '.close-btn',
-            mainVolumeChanger: 'mainVolume'
+            mainVolumeChanger: 'mainVolume',
+            musicVolumeChanger: 'musicVolume',
+            clickVolumeChanger: 'clickVolume',
+            notificationVolumeChanger: 'notificationVolume',
         }
         const {btnOpen, btnClose, mainVolumeChanger} = this.selectors
         this.elements = {
             dialogMain: document.getElementById(dialogId),
             btnOpen: document.querySelector(btnOpen),
             btnClose: document.querySelector(btnClose),
-            mainVolumeChanger: document.getElementById(mainVolumeChanger)
         }
-        console.log(this.elements)
         this.addVolumeIcons = this.addVolumeIcons.bind(this);
         this.open = this.open.bind(this)
         this.close = this.close.bind(this)
@@ -37,11 +38,45 @@ export class dialogAudioControl{
         this.elements.dialogMain.close()
     }
     bindVolumeControls(){
-        console.log(document.getElementById(this.selectors.mainVolumeChanger))
         document.getElementById(this.selectors.mainVolumeChanger).addEventListener('change', (e) =>{
             this.AudioControl.setMasterVolume(e.target.value)
-            this.JSONSevice.save('dsad' ,e.target.value)
+            this.JSONSevice.save('MasterVolume', e.target.value)
         })
+        document.getElementById(this.selectors.musicVolumeChanger).addEventListener('change', (e) =>{
+            this.AudioControl.setMusicVolume(e.target.value)
+            this.JSONSevice.save('MusicVolume', e.target.value)
+        })
+        document.getElementById(this.selectors.clickVolumeChanger).addEventListener('change', (e) =>{
+            this.AudioControl.setClickVolume(e.target.value)
+            this.JSONSevice.save('ClickVolume', e.target.value)
+        })
+        document.getElementById(this.selectors.notificationVolumeChanger).addEventListener('change', (e) =>{
+            this.AudioControl.setNotificationVolume(e.target.value)
+            this.JSONSevice.save('NotificationVolume', e.target.value)
+        })
+
+        // const volumeControls = [
+        //     {
+        //         selector: this.selectors.mainVolumeChanger,
+        //         setter: (e) => this.AudioControl.setMasterVolume(e.target.value),
+        //         saveKey: 'MasterVolume'
+        //     },
+        //     {
+        //         selector: this.selectors.mainVolumeChanger,
+        //         setter: (e) => this.AudioControl.setMusicVolume(e.target.value),
+        //         saveKey: 'MusicVolume'
+        //     },
+        //     {
+        //         selector: this.selectors.mainVolumeChanger,
+        //         setter: (e) => this.AudioControl.setMasterVolume(e.target.value),
+        //         saveKey: 'MasterVolume'
+        //     },
+        //     {
+        //         selector: this.selectors.mainVolumeChanger,
+        //         setter: (e) => this.AudioControl.setMasterVolume(e.target.value),
+        //         saveKey: 'MasterVolume'
+        //     }
+        // ]
     }
     addVolumeIcons(){
         const inputs = this.elements.dialogMain.querySelectorAll("fieldset input[type='range']")
