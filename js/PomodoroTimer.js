@@ -48,8 +48,7 @@ export class PomodoroTimer {
     initEventListeners() {
         this.elements.startBtn.addEventListener('click', () => this.toggleTimer())
         this.elements.resetBtn.addEventListener('click', () => this.resetTimer())
-        document.addEventListener('pointerdown', (e) => {
-            console.log(e.currentTarget)
+        document.addEventListener('click', (e) => {
             if(e.target.tagName == 'BUTTON' || e.target.getAttribute('role') === 'button'){
                 setTimeout(() => {
                     this.AudioControl.soundClick()

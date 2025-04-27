@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Underdog&display=swap" rel="stylesheet">
 </head>
 <body>
-
   <video src="source/backgrounds/bg.mp4" autoplay muted loop id="bgVideo">
   </video>
 
@@ -25,7 +24,7 @@
       <svg class="progress-ring" width="300" height="300">
         <circle class="progress-ring__circle" stroke="#eee" stroke-width="8" fill="transparent" r="140" cx="150" cy="150"/>
         <circle class="progress-ring__circle progress" stroke="#ff7675" stroke-width="8" fill="transparent" r="140" cx="150" cy="150"/>
-     </svg>
+      </svg>
 
      <!-- таймер --> 
       <div class="timer">00:00</div>
@@ -35,10 +34,10 @@
         <button type="button" class="btn start-btn">Start</button>
         <button type="button" class="btn reset-btn">Reset</button>
         <button type="button" class="btn music-btn" title="on/off music">
-          <svg
+          <svg role='button'
            width="20"
-           height="20"
-           viewBox="0 0 441.7699 315.8327" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="none" stroke-linecap="butt" stroke-linejoin="none" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M46.0276,92.4074c-20.0316,0.2243 -36.1247,16.5781 -36.0271,36.6107l0.3083,63.2811c0.0981,20.1284 16.5751,36.3232 36.7023,36.0733l72.7904,-0.9035c2.7237,-0.0338 5.4121,0.6191 7.8169,1.8984l138.5185,73.6878c15.5219,8.2572 34.2723,-2.8779 34.4501,-20.4586l2.5221,-249.3236c0.1786,-17.6514 -18.7677,-28.9195 -34.1924,-20.3355l-137.5616,76.5549c-2.3583,1.3124 -5.0068,2.0156 -7.7056,2.0458z" fill="#ffffff" stroke="#cc2fa9" stroke-width="20" stroke-linejoin="miter"></path><path d="M352.4569,67.1771c107.923,61.3835 104.8418,119.2353 -3.9615,181.4785" fill="#ffffff" stroke="#cc2fa9" stroke-width="20" stroke-linejoin="miter"></path><path d="M331.9653,97.6312c77.5565,38.7516 77.5565,81.4482 0,114.8849" fill="#ffffff" stroke="#cc2fa9" stroke-width="20" stroke-linejoin="miter"></path><path d="M106.8906,193.1296c-6.8886,-8.7764 -6.8886,-62.6227 0,-71.399c4.0242,-5.127 15.101,-5.127 19.1252,0c6.8886,8.7764 6.8886,62.6227 0,71.399c-4.0242,5.127 -15.101,5.127 -19.1252,0z" fill="#cc2fa9" stroke="none" stroke-width="1" stroke-linejoin="round"></path></g>
+           height="20">
+           <use href="/source/icons/sprite.svg#icon-music" />
           </svg>
         </button>
       </div>
@@ -68,7 +67,11 @@
   <!-- настройки звук -->
    <dialog class="dialogModal" id="controlsVolume">
       <button type="button" title="close controle volume" class="close-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="29.8" height="8.318"><path fill="#fff" stroke="#cc2fa9" stroke-miterlimit="10" stroke-width="3" d="M3.123 6.817c-.896 0-1.623-1.19-1.623-2.658C1.5 2.69 2.227 1.5 3.123 1.5h23.554c.896 0 1.623 1.19 1.623 2.659 0 1.468-.727 2.658-1.623 2.658z" font-family="none" font-size="none" font-weight="none" style="mix-blend-mode:normal" text-anchor="none"/>
+        <svg role="button"
+             xmlns="http://www.w3.org/2000/svg"
+             width="29.8"
+             height="8.318">
+              <use href="/source/icons/sprite.svg#icon-close" />
         </svg>
     </button>
       <fieldset>
@@ -91,8 +94,6 @@
           <p> Notification volume </p>
         </label>
         <input type="range" min="0" max="100" value="50" step="1" id="notificationVolume">
-        <input type="range" min="0" max="100" value="50" step="1" id="rainVolume">
-        <input type="range" min="0" max="100" value="50" step="1" id="rainVolume">
       </fieldset>
    </dialog>
 

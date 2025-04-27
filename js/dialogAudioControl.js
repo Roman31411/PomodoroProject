@@ -16,7 +16,7 @@ export class dialogAudioControl{
             btnOpen: document.querySelector(btnOpen),
             btnClose: document.querySelector(btnClose),
         }
-        this.addVolumeIcons = this.addVolumeIcons.bind(this);
+        this.addVolumeIcons = this.addVolumeIcons.bind(this)
         this.open = this.open.bind(this)
         this.close = this.close.bind(this)
 
@@ -27,8 +27,8 @@ export class dialogAudioControl{
             this.addVolumeIcons()
             this.bindVolumeControls()
         } )
-        this.elements.btnOpen.addEventListener('pointerdown', this.open)
-        this.elements.btnClose.addEventListener('pointerdown', this.close)
+        this.elements.btnOpen.addEventListener('click', this.open)
+        this.elements.btnClose.addEventListener('click', this.close)
         
     }
     open(){
@@ -38,70 +38,80 @@ export class dialogAudioControl{
         this.elements.dialogMain.close()
     }
     bindVolumeControls(){
-        document.getElementById(this.selectors.mainVolumeChanger).addEventListener('change', (e) =>{
-            this.AudioControl.setMasterVolume(e.target.value)
-            this.JSONSevice.save('MasterVolume', e.target.value)
-        })
-        document.getElementById(this.selectors.musicVolumeChanger).addEventListener('change', (e) =>{
-            this.AudioControl.setMusicVolume(e.target.value)
-            this.JSONSevice.save('MusicVolume', e.target.value)
-        })
-        document.getElementById(this.selectors.clickVolumeChanger).addEventListener('change', (e) =>{
-            this.AudioControl.setClickVolume(e.target.value)
-            this.JSONSevice.save('ClickVolume', e.target.value)
-        })
-        document.getElementById(this.selectors.notificationVolumeChanger).addEventListener('change', (e) =>{
-            this.AudioControl.setNotificationVolume(e.target.value)
-            this.JSONSevice.save('NotificationVolume', e.target.value)
-        })
+        const volumeControls = [
+            {
+                selector: this.selectors.mainVolumeChanger,
+                setter: (e) => this.AudioControl.setMasterVolume(e),
+                saveKey: 'MasterVolume'
+            },
+            {
+                selector: this.selectors.musicVolumeChanger,
+                setter: (e) => this.AudioControl.setMusicVolume(e),
+                saveKey: 'MusicVolume'
+            },
+            {
+                selector: this.selectors.clickVolumeChanger,
+                setter: (e) => this.AudioControl.setClickVolume(e),
+                saveKey: 'ClickVolume'
+            },
+            {
+                selector: this.selectors.notificationVolumeChanger,
+                setter: (e) => this.AudioControl.setNotificationVolume(e),
+                saveKey: 'NotificationVolume'
+            }
+        ]
+        volumeControls.forEach(({selector, setter, saveKey})=>{
+            const element = document.getElementById(selector)
+            if (!element) return
 
-        // const volumeControls = [
-        //     {
-        //         selector: this.selectors.mainVolumeChanger,
-        //         setter: (e) => this.AudioControl.setMasterVolume(e.target.value),
-        //         saveKey: 'MasterVolume'
-        //     },
-        //     {
-        //         selector: this.selectors.mainVolumeChanger,
-        //         setter: (e) => this.AudioControl.setMusicVolume(e.target.value),
-        //         saveKey: 'MusicVolume'
-        //     },
-        //     {
-        //         selector: this.selectors.mainVolumeChanger,
-        //         setter: (e) => this.AudioControl.setMasterVolume(e.target.value),
-        //         saveKey: 'MasterVolume'
-        //     },
-        //     {
-        //         selector: this.selectors.mainVolumeChanger,
-        //         setter: (e) => this.AudioControl.setMasterVolume(e.target.value),
-        //         saveKey: 'MasterVolume'
-        //     }
-        // ]
+            element.addEventListener('change', (e)=>{
+                const value = e.target.value
+                setter(value)
+                this.JSONSevice.save(saveKey, value)
+            })
+        })
     }
-    addVolumeIcons(){
+    addVolumeIcons() {
         const inputs = this.elements.dialogMain.querySelectorAll("fieldset input[type='range']")
+        
+        // Создаем функцию для генерации SVG-иконок
+        const createIcon = (iconId) => {
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+            const use = document.createElementNS("http://www.w3.org/2000/svg", "use")
+            
+            svg.setAttribute('width', '20')
+            svg.setAttribute('height', '20')
+            svg.setAttribute('role', 'button')
+            use.setAttribute('href', `/source/icons/sprite.svg#${iconId}`)
+            use.setAttribute('xlink:href', `/source/icons/sprite.svg#${iconId}`) // Для старых браузеров
+            
+            svg.appendChild(use)
+            return svg
+        }
+    
         inputs.forEach(input => {
-            //create container for input and img
             const wrapper = document.createElement('div')
             wrapper.className = 'inputs-wrapper'
-
-            //create img for input
-            const muteIcon = document.createElement('img')
-            muteIcon.src = '../source/icons/volumeOFF.svg'
-            muteIcon.alt = 'mute'
-            muteIcon.width = 20
-            muteIcon.height = 20
-
-            const unmuteIcon = document.createElement('img')
-            unmuteIcon.src = '../source/icons/volumeON.svg'
-            unmuteIcon.alt = 'unmute'
-            unmuteIcon.width = 20
-            unmuteIcon.height = 20
-
-            //append element in wrapper
-            wrapper.append(muteIcon, input.cloneNode(true), unmuteIcon)
-
-            //replace origin input, wrapper
+            // Создаем кнопки с SVG
+            const muteButton = document.createElement('button')
+            muteButton.type = 'button'
+            muteButton.className = 'volume-btn'
+            muteButton.title = 'off volume'
+            muteButton.appendChild(createIcon('icon-volume-off'))
+            
+            const unmuteButton = document.createElement('button')
+            unmuteButton.type = 'button'
+            unmuteButton.className = 'volume-btn'
+            unmuteButton.title = 'on volume'
+            unmuteButton.appendChild(createIcon('icon-volume-on'))
+    
+            // Клонируем input
+            const clonedInput = input.cloneNode(true)
+    
+            // Добавляем элементы в обертку
+            wrapper.append(muteButton, clonedInput, unmuteButton)
+    
+            // Заменяем оригинальный input
             input.replaceWith(wrapper)
         })
     }

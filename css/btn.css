@@ -19,3 +19,29 @@
     background: linear-gradient(45deg, var(--primary), #ca3b3b);
     box-shadow: 0 0 15px rgb(136, 27, 112);
 }
+.close-btn{
+    position: absolute;
+    top: 0.5rem;
+    left: 88%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    :hover{
+        transform: scale(1.1);
+    }
+}
+.volume-btn{
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    :hover{
+        transform: scale(1.1);
+    }
+}
+svg[role="button"]{
+    & use{
+        pointer-events: none; /* Отключаем события для всех путей внутри SVG */
+    }
+}
